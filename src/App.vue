@@ -1,3 +1,17 @@
+<template>
+  <div id="wrapper">
+    <header id="page-banner">
+      <h1 class="title">todos</h1>
+      <input type="text" name="task" id="task" v-model.trim="tempTask" @keyup.enter="insertTask" />
+    </header>
+
+    <PrintList :list="taskList" @del-fun="deleteTask"></PrintList>
+    <br />
+    <Clear @clear-component="clearComponent"></Clear>
+    <Count :task-list="taskList"></Count>
+  </div>
+</template>
+
 <script>
 import PrintList from "./components/PrintList.vue";
 import Count from "./components/Count.vue";
@@ -16,7 +30,7 @@ export default {
     };
   },
   methods: {
-    insertfun() {
+    insertTask() {
       if (this.tempTask != "") {
         this.taskList.push({
           task: this.tempTask,
@@ -25,12 +39,12 @@ export default {
       }
       this.tempTask = "";
     },
-    del(index) {
+    deleteTask(index) {
       //console.log(index);
       this.taskList.splice(index, 1);
     },
     clearComponent() {
-      console.log("I am called");
+      //console.log("I am called");
       this.taskList = this.taskList.filter((li) => {
         if (li.isComplete) return false;
         else return true;
@@ -39,20 +53,6 @@ export default {
   },
 };
 </script>
-
-<template>
-  <div id="wrapper">
-    <header id="page-banner">
-      <h1 class="title">todos</h1>
-      <input type="text" name="task" id="task" v-model.trim="tempTask" @keyup.enter="insertfun" />
-    </header>
-
-    <PrintList :list="taskList" @del-fun="del"></PrintList>
-    <br />
-    <Clear @clear-component="clearComponent"></Clear>
-    <Count :task-list="taskList"></Count>
-  </div>
-</template>
 
 <style>
 #status {

@@ -1,7 +1,7 @@
 <template>
   <button @click="changeTab('active')">Active</button>
-  <button @click="changeTab('all')">All</button>
   <button @click="changeTab('completed')">Completed</button>
+  <button @click="changeTab('all')">All</button>
 
   <div v-for="(li, index) in list" :id="index" :key="li.key">
     <div class="list" v-if="computeCondition(li.isComplete)">
@@ -24,7 +24,6 @@ export default {
       currentStatus: "all",
     };
   },
-  computed: {},
   methods: {
     changeTab(str) {
       if (str == "all") this.currentStatus = "all";
