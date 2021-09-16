@@ -17,10 +17,12 @@ export default {
   },
   methods: {
     insertfun() {
-      this.taskList.push({
-        task: this.tempTask,
-        isComplete: false,
-      });
+      if (this.tempTask != "") {
+        this.taskList.push({
+          task: this.tempTask,
+          isComplete: false,
+        });
+      }
       this.tempTask = "";
     },
     del(index) {
@@ -42,7 +44,7 @@ export default {
   <div id="wrapper">
     <header id="page-banner">
       <h1 class="title">todos</h1>
-      <input type="text" name="task" id="task" v-model="tempTask" @keyup.enter="insertfun" />
+      <input type="text" name="task" id="task" v-model.trim="tempTask" @keyup.enter="insertfun" />
     </header>
 
     <PrintList :list="taskList" @del-fun="del"></PrintList>
