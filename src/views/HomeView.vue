@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { RouterView } from "vue-router";
+let x = 10;
 </script>
 
 <template>
   <div>
-    <RouterView />
+    <h1>Counter Value is ->{{ x }}</h1>
   </div>
 </template>
