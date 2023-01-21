@@ -4,6 +4,14 @@ let x = 10;
 
 <template>
   <div>
-    <h1>Counter Value is ->{{ x }}</h1>
+    <div class="navbar bg-neutral text-neutral-content">
+      <a class="btn btn-ghost normal-case text-xl">daisyUI</a>
+    </div>
+    <div class="navbar bg-base-300">
+      <a class="btn btn-ghost normal-case text-xl">daisyUI</a>
+    </div>
+    <div class="navbar bg-primary text-primary-content">
+      <a class="btn btn-ghost normal-case text-xl">daisyUI</a>
+    </div>
   </div>
 </template>
