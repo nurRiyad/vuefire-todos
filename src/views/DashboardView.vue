@@ -4,6 +4,6 @@ let x = 10;
 
 <template>
   <div>
-    <h1>This is home page</h1>
+    <h1>Welcome to the dashboard page</h1>
   </div>
 </template>

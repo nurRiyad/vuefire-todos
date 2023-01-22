@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import { RouterView } from "vue-router";
-
-import { useFirestore } from "vuefire";
-
-const db = useFirestore();
-console.log(db);
+import { RouterView } from 'vue-router';
+import Navbar from './components/Navbar.vue';
 </script>
 
 <template>
   <div>
-    <RouterView />
+    <Navbar />
+    <div>
+      <RouterView />
+    </div>
   </div>
 </template>
