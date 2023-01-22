@@ -1,36 +1,12 @@
-<template>
-  <div class="min-h-screen">
-    <main class="max-w-5xl px-5 mx-auto pt-7 lg:px-0 text-center">
-      <template v-if="false">
-        <p>Loading...</p>
-      </template>
-      <template v-else>
-        <div class="flex flex-col items-end space-y-5">
-          <input
-            type="email"
-            placeholder="email"
-            class="input input-bordered input-primary w-full max-w-md"
-          />
-          <input
-            type="password"
-            placeholder="password"
-            class="input input-bordered input-primary w-full max-w-md"
-          />
-          <button @click="signinPopup" class="btn btn-primary max-w-sm">
-            Login
-          </button>
-        </div>
-      </template>
-    </main>
-  </div>
-</template>
-
 <script setup lang="ts">
+import Google from '@/components/svg/Google.vue';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { useRouter } from 'vue-router';
 
 const provider = new GoogleAuthProvider();
 
 const auth = getAuth();
+const router = useRouter();
 
 const signinPopup = () => {
   signInWithPopup(auth, provider)
@@ -40,7 +16,8 @@ const signinPopup = () => {
       const token = credential?.accessToken;
       // The signed-in user info.
       const user = result.user;
-      // ...
+      // redirect to dashboard page
+      router.push('/dashboard');
     })
     .catch((error) => {
       // Handle Errors here.
@@ -55,11 +32,13 @@ const signinPopup = () => {
 };
 </script>
 
-<style scoped>
-.avatar {
-  padding: 1em 0;
-}
-main > button {
-  margin: 1em 0;
-}
-</style>
+<template>
+  <div class="container max-w-7xl h-full mx-auto">
+    <div class="flex justify-center h-full items-center">
+      <button @click="signinPopup" class="btn btn-primary gap-2">
+        Signin Wiht Google
+        <Google class="w-5" />
+      </button>
+    </div>
+  </div>
+</template>

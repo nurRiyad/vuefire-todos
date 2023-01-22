@@ -1,75 +1,87 @@
 <script setup lang="ts">
-let x = 10;
+import Google from '@/components/svg/Google.vue';
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+} from 'firebase/auth';
+import { useRouter } from 'vue-router';
+import { ref } from 'vue';
+
+const provider = new GoogleAuthProvider();
+
+const auth = getAuth();
+const router = useRouter();
+
+const email = ref('');
+const password = ref('');
+
+const googleSigninPopup = () => {
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential?.accessToken;
+      // The signed-in user info.
+      const user = result.user;
+      // redirect to dashboard page
+      router.push('/dashboard');
+    })
+    .catch((error) => {
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      const email = error.customData.email;
+      // The AuthCredential type that was used.
+      const credential = GoogleAuthProvider.credentialFromError(error);
+      // ...
+    });
+};
+
+const signinWithEmailPass = () => {
+  createUserWithEmailAndPassword(auth, email.value, password.value)
+    .then((userCredential) => {
+      // Signed in
+      const user = userCredential.user;
+      // ...
+      router.push('/dashboard');
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // ..
+    });
+};
 </script>
 
 <template>
-  <div>
-    <section
-      class="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800"
-    >
-      <h2
-        class="text-lg font-semibold text-gray-700 capitalize dark:text-white"
+  <div class="container max-w-7xl h-full mx-auto">
+    <div class="flex justify-center h-full items-center">
+      <div
+        class="bg-primary flex flex-col space-y-4 p-10 rounded-lg shadow-2xl"
       >
-        Account settings
-      </h2>
-
-      <form>
-        <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-          <div>
-            <label class="text-gray-700 dark:text-gray-200" for="username"
-              >Username</label
-            >
-            <input
-              id="username"
-              type="text"
-              class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
-            />
-          </div>
-
-          <div>
-            <label class="text-gray-700 dark:text-gray-200" for="emailAddress"
-              >Email Address</label
-            >
-            <input
-              id="emailAddress"
-              type="email"
-              class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
-            />
-          </div>
-
-          <div>
-            <label class="text-gray-700 dark:text-gray-200" for="password"
-              >Password</label
-            >
-            <input
-              id="password"
-              type="password"
-              class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
-            />
-          </div>
-
-          <div>
-            <label
-              class="text-gray-700 dark:text-gray-200"
-              for="passwordConfirmation"
-              >Password Confirmation</label
-            >
-            <input
-              id="passwordConfirmation"
-              type="password"
-              class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
-            />
-          </div>
-        </div>
-
-        <div class="flex justify-end mt-6">
-          <button
-            class="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
-          >
-            Save
-          </button>
-        </div>
-      </form>
-    </section>
+        <input
+          v-model="email"
+          type="email"
+          placeholder="Email"
+          class="input input-bordered input-secondary w-full max-w-xs"
+        />
+        <input
+          v-model="password"
+          type="password"
+          placeholder="Password"
+          class="input input-bordered input-secondary w-full max-w-xs"
+        />
+        <button @click="signinWithEmailPass" class="btn btn-secondary">
+          Create New Account
+        </button>
+        <button @click="googleSigninPopup" class="btn btn-secondary">
+          Signin Wiht Google
+          <Google class="w-5" />
+        </button>
+      </div>
+    </div>
   </div>
 </template>

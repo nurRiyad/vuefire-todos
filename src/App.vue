@@ -1,13 +1,23 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router';
 import Navbar from './components/Navbar.vue';
+import Footer from './components/Footer.vue';
 </script>
 
 <template>
-  <div>
+  <div class="gd-container">
     <Navbar />
-    <div>
+    <main>
       <RouterView />
-    </div>
+    </main>
+    <Footer />
   </div>
 </template>
+
+<style scoped>
+.gd-container {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+}
+</style>

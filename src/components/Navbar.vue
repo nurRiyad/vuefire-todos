@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-primary">
+  <header class="bg-primary">
     <div class="container max-w-7xl mx-auto navbar text-primary-content">
       <div class="navbar-start">
         <RouterLink to="/" class="btn btn-ghost normal-case text-xl">
@@ -14,7 +14,7 @@
         </RouterLink>
       </div>
       <div class="navbar-end">
-        <RouterLink v-if="!user" to="/login" class="btn btn-secondary">
+        <RouterLink v-if="!user" to="/signup" class="btn btn-secondary">
           Get started
         </RouterLink>
         <div v-else class="dropdown dropdown-end text-primary">
@@ -32,7 +32,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </header>
 </template>
 
 <script setup lang="ts">
