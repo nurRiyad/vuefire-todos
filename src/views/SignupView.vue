@@ -5,6 +5,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
+  sendEmailVerification,
 } from 'firebase/auth';
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';
@@ -43,15 +44,16 @@ const googleSigninPopup = () => {
 const signinWithEmailPass = () => {
   createUserWithEmailAndPassword(auth, email.value, password.value)
     .then((userCredential) => {
-      // Signed in
       const user = userCredential.user;
-      // ...
-      router.push('/dashboard');
+      sendEmailVerification(user, {
+        url: 'http://localhost:5173/dashboard',
+      }).then(() => {
+        router.push('/verify');
+      });
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      // ..
     });
 };
 </script>
@@ -60,7 +62,7 @@ const signinWithEmailPass = () => {
   <div class="container max-w-7xl h-full mx-auto">
     <div class="flex justify-center h-full items-center">
       <div
-        class="bg-primary flex flex-col space-y-4 p-10 rounded-lg shadow-2xl"
+        class="bg-primary flex flex-col space-y-4 p-10 m-5 rounded-lg shadow-2xl"
       >
         <input
           v-model="email"
@@ -77,10 +79,16 @@ const signinWithEmailPass = () => {
         <button @click="signinWithEmailPass" class="btn btn-secondary">
           Create New Account
         </button>
-        <button @click="googleSigninPopup" class="btn btn-secondary">
+        <button @click="googleSigninPopup" class="btn btn-secondary gap-1">
           Signin Wiht Google
-          <Google class="w-5" />
+          <Google class="w-3" />
         </button>
+        <p class="text-primary-content text-center">
+          Already have an account
+          <span>
+            <RouterLink class="underline" to="/login">Login</RouterLink>
+          </span>
+        </p>
       </div>
     </div>
   </div>
