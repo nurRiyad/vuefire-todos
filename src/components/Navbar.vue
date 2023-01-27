@@ -1,26 +1,36 @@
 <template>
-  <header class="bg-primary">
-    <div class="container max-w-7xl mx-auto navbar text-primary-content">
+  <header class="bg-base-100 border-b">
+    <div class="container max-w-7xl mx-auto navbar">
       <div class="navbar-start">
-        <RouterLink to="/" class="btn btn-ghost normal-case text-xl">
-          todos
+        <RouterLink
+          to="/"
+          class="btn btn-ghost normal-case text-xl"
+          :class="{ 'text-primary': isRoot }"
+        >
+          Vue Todos
         </RouterLink>
         <RouterLink
           v-if="user"
           to="/dashboard"
           class="btn btn-ghost normal-case text-xl"
+          :class="{ 'text-primary': !isRoot }"
         >
-          dashboard
+          Dashboard
         </RouterLink>
       </div>
       <div class="navbar-end">
-        <RouterLink v-if="!user" to="/signup" class="btn btn-secondary">
-          Get started
+        <RouterLink v-if="!user" to="/signup" class="btn btn-primary">
+          SingUp
         </RouterLink>
-        <div v-else class="dropdown dropdown-end text-primary">
+        <div v-else class="dropdown dropdown-end hover:text-primary">
           <label tabindex="0" class="btn btn-ghost btn-circle avatar">
-            <div class="w-10 rounded-full">
-              <img :src="user.photoURL || ''" />
+            <div class="w-10 rounded-full ring-2">
+              <img
+                :src="
+                  user.photoURL ||
+                  'https://www.nurriyad.xyz/_nuxt/profilepic.e7877b41.webp'
+                "
+              />
             </div>
           </label>
           <ul
@@ -38,10 +48,14 @@
 <script setup lang="ts">
 import { useCurrentUser } from 'vuefire';
 import { getAuth, signOut } from 'firebase/auth';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
+import { computed } from 'vue';
 
 const user = useCurrentUser();
 const router = useRouter();
+const route = useRoute();
+
+const isRoot = computed(() => (route.fullPath === '/' ? true : false));
 
 const onLogoutClick = () => {
   const auth = getAuth();

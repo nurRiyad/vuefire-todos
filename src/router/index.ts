@@ -35,13 +35,7 @@ const router = createRouter({
       component: SigninView,
     },
     {
-      meta: { requiresAuth: false, userVarified: true },
-      path: '/recover',
-      name: 'recover',
-      component: RecoverView,
-    },
-    {
-      meta: { requiresAuth: true, userVarified: true },
+      meta: { requiresAuth: true, userVarified: false },
       path: '/verify',
       name: 'verify',
       component: VerifyView,
@@ -50,16 +44,12 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to) => {
-  // routes with `meta: { requiresAuth: true }` will check for the users
   if (to.meta.requiresAuth) {
     const currentUser = await getCurrentUser();
-    console.log('currentuser-', currentUser);
     if (!currentUser) {
       return {
         path: '/signup',
         query: {
-          // we keep the current path in the query so we can redirect to it after login
-          // with `router.push(route.query.redirectTo || '/')`
           redirectTo: to.fullPath,
         },
       };

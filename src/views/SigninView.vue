@@ -58,28 +58,32 @@ const loginWithEmalPass = () => {
 <template>
   <div class="container max-w-7xl h-full mx-auto">
     <div class="flex justify-center h-full items-center">
-      <div
-        class="bg-primary flex flex-col space-y-4 p-10 m-5 rounded-lg shadow-2xl"
-      >
+      <div class="flex flex-col space-y-4 p-10 m-5 rounded-lg shadow-md">
         <input
           v-model="email"
           type="email"
           placeholder="Email"
-          class="input input-bordered input-secondary w-full max-w-xs"
+          class="input input-bordered input-primary w-full max-w-xs"
         />
         <input
           v-model="password"
           type="password"
           placeholder="Password"
-          class="input input-bordered input-secondary w-full max-w-xs"
+          class="input input-bordered input-primary w-full max-w-xs"
         />
-        <button @click="loginWithEmalPass" class="btn btn-secondary">
+        <button @click="loginWithEmalPass" class="btn btn-primary">
           Log In
         </button>
-        <button @click="loginWithGooglePop" class="btn btn-secondary gap-1">
+        <button @click="loginWithGooglePop" class="btn btn-primary gap-1">
           Lon In With Google
           <Google class="w-4" />
         </button>
+        <p class="text-center">
+          New here, Create an account
+          <span>
+            <RouterLink class="underline" to="/signup">SignUp</RouterLink>
+          </span>
+        </p>
       </div>
     </div>
   </div>
