@@ -7,7 +7,7 @@
           class="btn btn-ghost normal-case text-xl"
           :class="{ 'text-primary': isRoot }"
         >
-          Vue Todos
+          Todos
         </RouterLink>
         <RouterLink
           v-if="user"
