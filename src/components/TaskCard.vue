@@ -8,11 +8,15 @@ const props = withDefaults(defineProps<Prpos>(), {
   title: 'No Task Available',
   description: 'No description available',
 });
+
+const onClicked = () => {
+  console.log('Clicked');
+};
 </script>
 
 <template>
   <div class="form-control">
-    <label class="label cursor-pointer">
+    <label @click.previent="onClicked" class="label cursor-pointer">
       <span class="label-text">
         <div>
           <h1 class="text-2xl font-semibold text-black">{{ title }}</h1>

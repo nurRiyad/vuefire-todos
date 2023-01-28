@@ -1,13 +1,9 @@
 <script setup lang="ts">
-import { useFirestore } from 'vuefire';
-import { useCollection } from 'vuefire';
-import { collection } from 'firebase/firestore';
 import TaskModal from '@/components/TaskModal.vue';
-import TaskCard from '@/components/TaskCard.vue';
+import Tasks from '@/components/Tasks.vue';
+import { ref } from 'vue';
 
-const db = useFirestore();
-
-const todos = useCollection(collection(db, 'todos'));
+let showTaskType = ref('inprogress');
 </script>
 
 <template>
@@ -22,18 +18,37 @@ const todos = useCollection(collection(db, 'todos'));
         />
       </div>
 
-      <div
-        v-for="n in 10"
-        :key="n"
-        class="max-w-2xl mx-auto border p-3 rounded-md shadow-md"
-      >
-        <TaskCard />
-      </div>
+      <Suspense>
+        <!-- component with nested async dependencies -->
+        <Tasks :showTaskType="showTaskType" />
+
+        <!-- loading state via #fallback slot -->
+        <template #fallback> Loading... </template>
+      </Suspense>
+
       <div class="flex justify-center">
         <div class="btn-group">
-          <button class="btn btn-active">Todos</button>
-          <button class="btn">Completed</button>
-          <button class="btn">All</button>
+          <button
+            class="btn"
+            :class="{ 'btn-active': showTaskType === 'inprogress' }"
+            @click="showTaskType = 'inprogress'"
+          >
+            Todos
+          </button>
+          <button
+            class="btn"
+            :class="{ 'btn-active': showTaskType === 'completed' }"
+            @click="showTaskType = 'completed'"
+          >
+            Completed
+          </button>
+          <button
+            class="btn"
+            :class="{ 'btn-active': showTaskType === 'all' }"
+            @click="showTaskType = 'all'"
+          >
+            All
+          </button>
         </div>
       </div>
     </div>
