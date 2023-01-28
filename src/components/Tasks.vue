@@ -3,6 +3,7 @@ import { getCurrentUser, useFirestore } from 'vuefire';
 import { useCollection } from 'vuefire';
 import { collection } from 'firebase/firestore';
 import TaskCard from '@/components/TaskCard.vue';
+import EmptyCard from '@/components/EmptyCard.vue';
 import { computed } from 'vue';
 
 interface Props {
@@ -50,5 +51,11 @@ const searchedTodos = computed(() => {
       :type="todo.type"
       :id="todo.id"
     />
+  </div>
+  <div
+    v-if="searchedTodos.length === 0"
+    class="max-w-2xl mx-auto border p-3 rounded-md shadow-md"
+  >
+    <EmptyCard />
   </div>
 </template>

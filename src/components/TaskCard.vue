@@ -2,6 +2,8 @@
 import { computed, ref } from 'vue';
 import { doc, setDoc } from 'firebase/firestore';
 import { getCurrentUser, useFirestore } from 'vuefire';
+import Delete from '@/components/svg/Delete.vue';
+import { deleteDoc } from 'firebase/firestore';
 
 interface Prpos {
   title: string;
@@ -17,13 +19,13 @@ const props = withDefaults(defineProps<Prpos>(), {
   id: '',
 });
 
-let isUpdateActive = ref(false);
+let isOperationActive = ref(false);
 
 const isChecked = computed(() => props.type === 'completed');
 
 const onClicked = async () => {
   try {
-    isUpdateActive.value = true;
+    isOperationActive.value = true;
 
     const db = useFirestore();
     const user = await getCurrentUser();
@@ -41,7 +43,21 @@ const onClicked = async () => {
   } catch (error) {
     console.log(error);
   }
-  isUpdateActive.value = false;
+  isOperationActive.value = false;
+};
+
+const onDeleteClick = async () => {
+  try {
+    isOperationActive.value = true;
+
+    const db = useFirestore();
+    const user = await getCurrentUser();
+
+    await deleteDoc(doc(db, `users/${user?.uid}/todos`, props.id));
+  } catch (error) {
+    console.log(error);
+  }
+  isOperationActive.value = false;
 };
 </script>
 
@@ -57,19 +73,28 @@ const onClicked = async () => {
       >
         {{ title }}
       </h1>
-      <p class="text-gray-800 mt-2" :class="{ 'text-gray-400': isChecked }">
+      <p class="mt-2" :class="{ 'text-gray-400': isChecked }">
         {{ description }}
       </p>
     </div>
-    <button
-      v-if="isUpdateActive"
-      class="btn btn-square btn-sm btn-primary loading"
-    ></button>
-    <input
-      v-else
-      type="checkbox"
-      :checked="isChecked"
-      class="checkbox checkbox-primary"
-    />
+    <div class="flex space-x-2 items-end">
+      <button
+        v-if="isOperationActive"
+        class="btn btn-square btn-xs btn-primary loading"
+      ></button>
+      <input
+        v-else
+        type="checkbox"
+        :checked="isChecked"
+        class="checkbox checkbox-primary"
+      />
+      <button
+        v-if="isChecked"
+        @click.stop="onDeleteClick"
+        class="btn btn-square btn-xs btn-error"
+      >
+        <Delete />
+      </button>
+    </div>
   </div>
 </template>

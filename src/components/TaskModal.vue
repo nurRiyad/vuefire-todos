@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import { addDoc, collection } from 'firebase/firestore';
 import { getCurrentUser, useFirestore } from 'vuefire';
+import Close from '@/components/svg/Close.vue';
 
 let title = ref('');
 let des = ref('');
@@ -53,7 +54,16 @@ const createTaks = async () => {
     <!-- Put this part before </body> tag -->
     <div class="modal" :class="{ 'modal-open': showModal }">
       <div class="modal-box">
-        <h3 class="font-bold text-lg">Create New Task</h3>
+        <div class="flex justify-between">
+          <h3 class="font-bold text-lg">Create New Task</h3>
+          <button
+            @click="showModal = false"
+            class="btn btn-circle btn-primary btn-sm btn-outline"
+          >
+            <Close />
+          </button>
+        </div>
+
         <div class="py-4 flex flex-col space-y-3">
           <input
             v-model="title"
