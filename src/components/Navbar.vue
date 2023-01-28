@@ -7,7 +7,7 @@
           class="btn btn-ghost normal-case text-xl"
           :class="{ 'text-primary': isRoot }"
         >
-          Todos
+          Home
         </RouterLink>
         <RouterLink
           v-if="user"
@@ -19,8 +19,8 @@
         </RouterLink>
       </div>
       <div class="navbar-end">
-        <RouterLink v-if="!user" to="/signup" class="btn btn-primary">
-          SingUp
+        <RouterLink v-if="!user" to="/signin" class="btn btn-primary">
+          SignIn
         </RouterLink>
         <div v-else class="dropdown dropdown-end hover:text-primary">
           <label tabindex="0" class="btn btn-ghost btn-circle avatar">
