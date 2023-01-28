@@ -4,6 +4,7 @@ import Tasks from '@/components/Tasks.vue';
 import { ref } from 'vue';
 
 let showTaskType = ref('inprogress');
+let searchText = ref('');
 </script>
 
 <template>
@@ -13,6 +14,7 @@ let showTaskType = ref('inprogress');
         <TaskModal />
         <input
           type="text"
+          v-model="searchText"
           placeholder="Type here to Search"
           class="input input-bordered input-primary w-full max-w-xs"
         />
@@ -20,7 +22,7 @@ let showTaskType = ref('inprogress');
 
       <Suspense>
         <!-- component with nested async dependencies -->
-        <Tasks :showTaskType="showTaskType" />
+        <Tasks :showTaskType="showTaskType" :searchText="searchText" />
 
         <!-- loading state via #fallback slot -->
         <template #fallback> Loading... </template>
