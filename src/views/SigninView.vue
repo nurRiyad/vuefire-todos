@@ -21,8 +21,9 @@ const email = ref('');
 const sentMail = ref(false);
 const showProcessing = ref(true);
 
+// For Local Dev -> url: 'http://localhost:5173/signin',
 const actionCodeSettings = {
-  url: 'http://localhost:5173/signin',
+  url: 'https://vuefire-todos.netlify.app/',
   handleCodeInApp: true,
 };
 
@@ -50,20 +51,22 @@ const googleSignIn = () => {
 };
 
 const sentEmaliForVerify = () => {
-  sendSignInLinkToEmail(auth, email.value, actionCodeSettings)
-    .then(() => {
-      // The link was successfully sent. Inform the user.
-      // Save the email locally so you don't need to ask the user for it again
-      // if they open the link on the same device.
-      window.localStorage.setItem('emailForSignIn', email.value);
-      sentMail.value = true;
-      // ...
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // ...
-    });
+  if (email.value.length >= 5) {
+    sendSignInLinkToEmail(auth, email.value, actionCodeSettings)
+      .then(() => {
+        // The link was successfully sent. Inform the user.
+        // Save the email locally so you don't need to ask the user for it again
+        // if they open the link on the same device.
+        window.localStorage.setItem('emailForSignIn', email.value);
+        sentMail.value = true;
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ...
+      });
+  }
 };
 
 onMounted(() => {

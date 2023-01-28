@@ -14,8 +14,9 @@ const onClick = () => {
       <div class="max-w-md">
         <h1 class="text-5xl font-bold">The Never-Ending To-Do List</h1>
         <p class="py-6">
-          Vue3, Firebase, Tailwindcss powered to-do app. Create, update, delete
-          tasks with ease, and user authentication. Boss up your task game now!
+          Vue3, Vuefire, Firebase, Tailwindcss powered to-do app. Create,
+          update, delete tasks with ease, and user authentication. Boss up your
+          task game now!
         </p>
         <button @click="onClick" class="btn btn-primary">Get Started</button>
       </div>
