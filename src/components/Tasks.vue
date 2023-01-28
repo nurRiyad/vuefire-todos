@@ -42,7 +42,7 @@ const searchedTodos = computed(() => {
 <template>
   <div
     v-for="todo in searchedTodos"
-    :key="todo.title"
+    :key="todo.id"
     class="max-w-2xl mx-auto border p-3 rounded-md shadow-md"
   >
     <TaskCard

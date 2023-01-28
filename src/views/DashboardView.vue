@@ -2,9 +2,12 @@
 import TaskModal from '@/components/TaskModal.vue';
 import Tasks from '@/components/Tasks.vue';
 import { ref } from 'vue';
+import { useAutoAnimate } from '@formkit/auto-animate/vue';
 
 let showTaskType = ref('inprogress');
 let searchText = ref('');
+
+const [parent] = useAutoAnimate();
 </script>
 
 <template>
@@ -20,14 +23,15 @@ let searchText = ref('');
         />
       </div>
 
-      <Suspense>
-        <!-- component with nested async dependencies -->
-        <Tasks :showTaskType="showTaskType" :searchText="searchText" />
+      <div ref="parent">
+        <Suspense>
+          <!-- component with nested async dependencies -->
+          <Tasks :showTaskType="showTaskType" :searchText="searchText" />
 
-        <!-- loading state via #fallback slot -->
-        <template #fallback> Loading... </template>
-      </Suspense>
-
+          <!-- loading state via #fallback slot -->
+          <template #fallback> Loading... </template>
+        </Suspense>
+      </div>
       <div class="flex justify-center">
         <div class="btn-group">
           <button

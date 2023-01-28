@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import Navbar from './components/Navbar.vue';
 import Footer from './components/Footer.vue';
+import { useAutoAnimate } from '@formkit/auto-animate/vue';
+
+const [parent] = useAutoAnimate();
 </script>
 
 <template>
   <div class="gd-container">
     <Navbar />
-    <main>
+    <main ref="parent">
       <RouterView />
     </main>
     <Footer />

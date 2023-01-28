@@ -82,19 +82,19 @@ const onDeleteClick = async () => {
         v-if="isOperationActive"
         class="btn btn-square btn-xs btn-primary loading"
       ></button>
-      <input
-        v-else
-        type="checkbox"
-        :checked="isChecked"
-        class="checkbox checkbox-primary"
-      />
       <button
-        v-if="isChecked"
+        v-if="isChecked && !isOperationActive"
         @click.stop="onDeleteClick"
         class="btn btn-square btn-xs btn-error"
       >
         <Delete />
       </button>
+      <input
+        v-if="!isOperationActive"
+        type="checkbox"
+        :checked="isChecked"
+        class="checkbox checkbox-primary"
+      />
     </div>
   </div>
 </template>
