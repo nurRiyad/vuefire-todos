@@ -2,7 +2,7 @@
 
 Vue3, Vuefire, Firebase, Tailwindcss powered to-do app. Create, update, delete tasks with ease, and user authentication. Boss up your task game now!
 
----
+
 
 ## Demo
 
