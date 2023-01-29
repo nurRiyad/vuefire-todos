@@ -13,7 +13,7 @@ Vue3, Vuefire, Firebase, Tailwindcss powered to-do app. Create, update, delete t
 Vuefire Todos built with [Vue3](https://vuejs.org), [Vuefire](https://vuefire.vuejs.org/) [Vue-Router](https://router.vuejs.org/) & [Tailwind](https://tailwindcss.com/)
 
 <p align="center">
-  <a href="https://hnews-nurriyad.netlify.com" target="_blank">
+  <a href="https://vuefire-todos.netlify.app/" target="_blank">
     <img width="1090" src="./src/assets/previews/home.png">
     <img width="1090" src="./src/assets/previews/login.png">
     <img width="1090" src="./src/assets/previews/dashboard.png">
