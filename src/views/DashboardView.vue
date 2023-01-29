@@ -23,7 +23,7 @@ const [parent] = useAutoAnimate();
         />
       </div>
 
-      <div ref="parent">
+      <div ref="parent" class="space-y-3">
         <Suspense>
           <!-- component with nested async dependencies -->
           <Tasks :showTaskType="showTaskType" :searchText="searchText" />
