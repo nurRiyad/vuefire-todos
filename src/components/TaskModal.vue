@@ -46,9 +46,9 @@ const createTaks = async () => {
     <label
       for="my-modal"
       @click="showModal = true"
-      class="btn btn-primary btn-wide"
+      class="btn btn-primary md:btn-wide"
     >
-      Create New Task
+      New Task
     </label>
 
     <!-- Put this part before </body> tag -->
