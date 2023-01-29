@@ -8,7 +8,7 @@ Vue3, Vuefire, Firebase, Tailwindcss powered to-do app. Create, update, delete t
 
 https://vuefire-todos.netlify.app/
 
-> Hosted on [Netlify](https://netlify.com/): `npm run build`
+> Hosted on [Netlify](https://netlify.com/): 
 
 
 ### Built with
@@ -18,6 +18,9 @@ https://vuefire-todos.netlify.app/
 </p>
 
 Vuefire Todos built with [Vue3](https://vuejs.org), [Vuefire](https://vuefire.vuejs.org/) [Vue-Router](https://router.vuejs.org/) & [Tailwind](https://tailwindcss.com/)
+
+
+## Previews
 
 <p align="center">
   <a href="https://vuefire-todos.netlify.app/" target="_blank">
