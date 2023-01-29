@@ -10,7 +10,7 @@ import {
   signInWithEmailLink,
 } from 'firebase/auth';
 import { useRouter } from 'vue-router';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 
 const provider = new GoogleAuthProvider();
 
@@ -19,6 +19,7 @@ const router = useRouter();
 
 const email = ref('');
 const sentMail = ref(false);
+const errorMsg = ref('');
 const showProcessing = ref(true);
 
 // For Local Dev -> url: 'http://localhost:5173/signin',
@@ -41,7 +42,8 @@ const googleSignIn = () => {
     .catch((error) => {
       // Handle Errors here.
       const errorCode = error.code;
-      const errorMessage = error.message;
+      errorMsg.value = error.message;
+      console.log(error);
       // The email of the user's account used.
       const email = error.customData.email;
       // The AuthCredential type that was used.
@@ -63,8 +65,8 @@ const sentEmaliForVerify = () => {
       })
       .catch((error) => {
         const errorCode = error.code;
-        const errorMessage = error.message;
-        // ...
+        errorMsg.value = error.message;
+        console.log(error.message);
       });
   }
 };
@@ -106,6 +108,8 @@ onMounted(() => {
   }
   showProcessing.value = false;
 });
+
+watch(email, () => (errorMsg.value = ''));
 </script>
 
 <template>
@@ -133,6 +137,12 @@ onMounted(() => {
           <div>
             <Info />
             <span>Check Your Mail for Varification Link</span>
+          </div>
+        </div>
+        <div v-if="errorMsg.length > 1" class="alert alert-error shadow-lg">
+          <div>
+            <Info />
+            <span>{{ errorMsg }}</span>
           </div>
         </div>
       </div>
