@@ -1,42 +1,44 @@
 <script setup lang="ts">
-import { getCurrentUser, useFirestore } from 'vuefire';
-import { useCollection } from 'vuefire';
-import { collection } from 'firebase/firestore';
-import TaskCard from '@/components/TaskCard.vue';
-import EmptyCard from '@/components/EmptyCard.vue';
-import { computed } from 'vue';
+import { getCurrentUser, useCollection, useFirestore } from 'vuefire'
+import { collection } from 'firebase/firestore'
+import { computed } from 'vue'
+import TaskCard from '@/components/TaskCard.vue'
+import EmptyCard from '@/components/EmptyCard.vue'
 
 interface Props {
-  showTaskType: string;
-  searchText: string;
+  showTaskType: string
+  searchText: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
   showTaskType: 'inprogress',
   searchText: '',
-});
+})
 
-const db = useFirestore();
-const user = await getCurrentUser();
+const db = useFirestore()
+const user = await getCurrentUser()
 
-const todos = useCollection(collection(db, `/users/${user?.uid}/todos`));
+const todos = useCollection(collection(db, `/users/${user?.uid}/todos`))
 
 const filteredTodos = computed(() => {
   return todos.value.filter((todo) => {
-    if (props.showTaskType === 'all') return true;
-    else return todo.type === props.showTaskType;
-  });
-});
+    if (props.showTaskType === 'all')
+      return true
+    else return todo.type === props.showTaskType
+  })
+})
 
 const searchedTodos = computed(() => {
   return filteredTodos.value.filter((todo) => {
-    if (props.searchText.length <= 2) return true;
-    else {
-      const title = todo.title.toLowerCase() || '';
-      return title.includes(props.searchText.toLocaleLowerCase());
+    if (props.searchText.length <= 2) {
+      return true
     }
-  });
-});
+    else {
+      const title = todo.title.toLowerCase() || ''
+      return title.includes(props.searchText.toLocaleLowerCase())
+    }
+  })
+})
 </script>
 
 <template>
@@ -46,10 +48,10 @@ const searchedTodos = computed(() => {
     class="max-w-2xl mx-auto border p-3 rounded-md shadow-md"
   >
     <TaskCard
+      :id="todo.id"
       :title="todo.title"
       :description="todo.description"
       :type="todo.type"
-      :id="todo.id"
     />
   </div>
   <div

@@ -1,15 +1,14 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import { doc, setDoc } from 'firebase/firestore';
-import { getCurrentUser, useFirestore } from 'vuefire';
-import Delete from '@/components/svg/Delete.vue';
-import { deleteDoc } from 'firebase/firestore';
+import { computed, ref } from 'vue'
+import { deleteDoc, doc, setDoc } from 'firebase/firestore'
+import { getCurrentUser, useFirestore } from 'vuefire'
+import Delete from '@/components/svg/Delete.vue'
 
 interface Prpos {
-  title: string;
-  description: string;
-  type: string;
-  id: string;
+  title: string
+  description: string
+  type: string
+  id: string
 }
 
 const props = withDefaults(defineProps<Prpos>(), {
@@ -17,48 +16,50 @@ const props = withDefaults(defineProps<Prpos>(), {
   description: 'No description available',
   type: 'inprogress',
   id: '',
-});
+})
 
-let isOperationActive = ref(false);
+const isOperationActive = ref(false)
 
-const isChecked = computed(() => props.type === 'completed');
+const isChecked = computed(() => props.type === 'completed')
 
 const onClicked = async () => {
   try {
-    isOperationActive.value = true;
+    isOperationActive.value = true
 
-    const db = useFirestore();
-    const user = await getCurrentUser();
+    const db = useFirestore()
+    const user = await getCurrentUser()
 
-    const newType = props.type === 'completed' ? 'inprogress' : 'completed';
+    const newType = props.type === 'completed' ? 'inprogress' : 'completed'
 
     const obj = {
       title: props.title,
       description: props.description,
       type: newType,
-    };
+    }
 
-    const todoRef = doc(db, `users/${user?.uid}/todos`, props.id);
-    setDoc(todoRef, obj, { merge: true });
-  } catch (error) {
-    console.log(error);
+    const todoRef = doc(db, `users/${user?.uid}/todos`, props.id)
+    setDoc(todoRef, obj, { merge: true })
   }
-  isOperationActive.value = false;
-};
+  catch (error) {
+    console.log(error)
+  }
+  isOperationActive.value = false
+}
 
 const onDeleteClick = async () => {
   try {
-    isOperationActive.value = true;
+    isOperationActive.value = true
 
-    const db = useFirestore();
-    const user = await getCurrentUser();
+    const db = useFirestore()
+    const user = await getCurrentUser()
 
-    await deleteDoc(doc(db, `users/${user?.uid}/todos`, props.id));
-  } catch (error) {
-    console.log(error);
+    await deleteDoc(doc(db, `users/${user?.uid}/todos`, props.id))
   }
-  isOperationActive.value = false;
-};
+  catch (error) {
+    console.log(error)
+  }
+  isOperationActive.value = false
+}
 </script>
 
 <template>
@@ -84,11 +85,11 @@ const onDeleteClick = async () => {
       <button
         v-if="isOperationActive"
         class="btn btn-square btn-xs btn-primary loading"
-      ></button>
+      />
       <button
         v-if="isChecked && !isOperationActive"
-        @click.stop="onDeleteClick"
         class="btn btn-square btn-xs btn-error"
+        @click.stop="onDeleteClick"
       >
         <Delete />
       </button>
@@ -97,7 +98,7 @@ const onDeleteClick = async () => {
         type="checkbox"
         :checked="isChecked"
         class="checkbox checkbox-primary"
-      />
+      >
     </div>
   </div>
 </template>

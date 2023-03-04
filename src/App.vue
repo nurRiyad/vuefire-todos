@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import Navbar from './components/Navbar.vue';
-import Footer from './components/Footer.vue';
-import { useAutoAnimate } from '@formkit/auto-animate/vue';
+import { useAutoAnimate } from '@formkit/auto-animate/vue'
+import Navbar from './components/Navbar.vue'
+import Footer from './components/Footer.vue'
 
-const [parent] = useAutoAnimate();
+const [parent] = useAutoAnimate()
 </script>
 
 <template>
@@ -21,5 +21,6 @@ const [parent] = useAutoAnimate();
   display: grid;
   grid-template-rows: auto 1fr auto;
   min-height: 100vh;
+  background-color: #EEF1FF;
 }
 </style>

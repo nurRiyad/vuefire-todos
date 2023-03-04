@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import TaskModal from '@/components/TaskModal.vue';
-import Tasks from '@/components/Tasks.vue';
-import { ref } from 'vue';
-import { useAutoAnimate } from '@formkit/auto-animate/vue';
+import { ref } from 'vue'
+import { useAutoAnimate } from '@formkit/auto-animate/vue'
+import TaskModal from '@/components/TaskModal.vue'
+import Tasks from '@/components/Tasks.vue'
 
-let showTaskType = ref('inprogress');
-let searchText = ref('');
+const showTaskType = ref('inprogress')
+const searchText = ref('')
 
-const [parent] = useAutoAnimate();
+const [parent] = useAutoAnimate()
 </script>
 
 <template>
@@ -16,20 +16,22 @@ const [parent] = useAutoAnimate();
       <div class="flex justify-center align-baseline space-x-5">
         <TaskModal />
         <input
-          type="text"
           v-model="searchText"
+          type="text"
           placeholder="Type here to Search"
           class="input input-bordered input-primary w-full max-w-xs"
-        />
+        >
       </div>
 
       <div ref="parent" class="space-y-3">
         <Suspense>
           <!-- component with nested async dependencies -->
-          <Tasks :showTaskType="showTaskType" :searchText="searchText" />
+          <Tasks :show-task-type="showTaskType" :search-text="searchText" />
 
           <!-- loading state via #fallback slot -->
-          <template #fallback> Loading... </template>
+          <template #fallback>
+            Loading...
+          </template>
         </Suspense>
       </div>
       <div class="flex justify-center">

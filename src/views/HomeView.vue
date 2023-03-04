@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import Hero from '@/components/Hero.vue';
-
-let x = 10;
+import Hero from '@/components/Hero.vue'
 </script>
 
 <template>

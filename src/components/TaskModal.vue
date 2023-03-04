@@ -1,43 +1,44 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { addDoc, collection } from 'firebase/firestore';
-import { getCurrentUser, useFirestore } from 'vuefire';
-import Close from '@/components/svg/Close.vue';
+import { ref } from 'vue'
+import { addDoc, collection } from 'firebase/firestore'
+import { getCurrentUser, useFirestore } from 'vuefire'
+import Close from '@/components/svg/Close.vue'
 
-let title = ref('');
-let des = ref('');
-let stat = ref('inprogress');
-let isCreating = ref(false);
-let showModal = ref(false);
+const title = ref('')
+const des = ref('')
+const stat = ref('inprogress')
+const isCreating = ref(false)
+const showModal = ref(false)
 
 const createTaks = async () => {
   if (title.value) {
     try {
-      isCreating.value = true;
+      isCreating.value = true
 
-      const user = await getCurrentUser();
-      const db = useFirestore();
+      const user = await getCurrentUser()
+      const db = useFirestore()
 
       const obj = {
         title: title.value,
         description: des.value,
         type: stat.value,
-      };
+      }
       const docRef = await addDoc(
         collection(db, `users/${user?.uid}/todos`),
-        obj
-      );
+        obj,
+      )
 
-      title.value = '';
-      des.value = '';
-      showModal.value = false;
-    } catch (error) {
-      console.log(error);
+      title.value = ''
+      des.value = ''
+      showModal.value = false
+    }
+    catch (error) {
+      console.log(error)
     }
 
-    isCreating.value = false;
+    isCreating.value = false
   }
-};
+}
 </script>
 
 <template>
@@ -45,8 +46,8 @@ const createTaks = async () => {
     <!-- The button to open modal -->
     <label
       for="my-modal"
-      @click="showModal = true"
       class="btn btn-primary md:btn-wide"
+      @click="showModal = true"
     >
       New Task
     </label>
@@ -55,10 +56,12 @@ const createTaks = async () => {
     <div class="modal" :class="{ 'modal-open': showModal }">
       <div class="modal-box">
         <div class="flex justify-between">
-          <h3 class="font-bold text-lg">Create New Task</h3>
+          <h3 class="font-bold text-lg">
+            Create New Task
+          </h3>
           <button
-            @click="showModal = false"
             class="btn btn-circle btn-primary btn-sm btn-outline"
+            @click="showModal = false"
           >
             <Close />
           </button>
@@ -70,19 +73,19 @@ const createTaks = async () => {
             type="text"
             placeholder="Title"
             class="input input-bordered input-primary w-full"
-          />
+          >
           <input
             v-model="des"
             type="text"
             placeholder="Desscription"
             class="input input-bordered input-primary w-full"
-          />
+          >
         </div>
         <div class="flex justify-end">
           <button
-            @click="createTaks"
             class="btn btn-primary"
             :class="{ loading: isCreating }"
+            @click="createTaks"
           >
             Button
           </button>
