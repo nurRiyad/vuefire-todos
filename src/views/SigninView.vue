@@ -41,8 +41,8 @@ const googleSignIn = () => {
 }
 
 const sentEmailForVerify = () => {
-  showProcessing.value = true
   if (email.value.length >= 5) {
+    showProcessing.value = true
     sendSignInLinkToEmail(auth, email.value, actionCodeSettings)
       .then(() => {
         window.localStorage.setItem('emailForSignIn', email.value)
@@ -66,8 +66,9 @@ watch(email, () => {
 
 onMounted(() => {
   // Confirm the link is a sign-in with email link.
-  showProcessing.value = true
   if (isSignInWithEmailLink(auth, window.location.href)) {
+    showProcessing.value = true
+
     let email = window.localStorage.getItem('emailForSignIn') || ''
 
     if (!email) {
