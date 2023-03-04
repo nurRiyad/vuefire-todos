@@ -21,6 +21,6 @@ const [parent] = useAutoAnimate()
   display: grid;
   grid-template-rows: auto 1fr auto;
   min-height: 100vh;
-  background-color: #EEF1FF;
+  background-color: #ECF2FF;
 }
 </style>

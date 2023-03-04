@@ -9,7 +9,7 @@ const onClick = () => {
 </script>
 
 <template>
-  <div class="hero min-h-[70vh] bg-base-100">
+  <div class="hero min-h-[70vh]">
     <div class="hero-content text-center">
       <div class="max-w-md">
         <h1 class="text-5xl font-bold">

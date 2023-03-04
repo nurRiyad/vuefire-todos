@@ -23,7 +23,7 @@ const createTaks = async () => {
         description: des.value,
         type: stat.value,
       }
-      const docRef = await addDoc(
+      await addDoc(
         collection(db, `users/${user?.uid}/todos`),
         obj,
       )

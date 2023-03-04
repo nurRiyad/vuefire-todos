@@ -19,13 +19,14 @@ const onLogoutClick = () => {
     })
     .catch((error) => {
       // An error happened.
+      // eslint-disable-next-line no-alert
       alert(error.message)
     })
 }
 </script>
 
 <template>
-  <header class="bg-base-100 border-b">
+  <header class="border-b">
     <div class="container max-w-7xl mx-auto navbar">
       <div class="navbar-start">
         <RouterLink
