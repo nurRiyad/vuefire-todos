@@ -1,15 +1,7 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, defineAsyncComponent, ref } from 'vue'
 import { deleteDoc, doc, setDoc } from 'firebase/firestore'
 import { getCurrentUser, useFirestore } from 'vuefire'
-import Delete from '@/components/svg/Delete.vue'
-
-interface Prpos {
-  title: string
-  description: string
-  type: string
-  id: string
-}
 
 const props = withDefaults(defineProps<Prpos>(), {
   title: 'No Task Available',
@@ -17,6 +9,15 @@ const props = withDefaults(defineProps<Prpos>(), {
   type: 'inprogress',
   id: '',
 })
+
+const Delete = defineAsyncComponent(() => import('@/components/svg/Delete.vue'))
+
+interface Prpos {
+  title: string
+  description: string
+  type: string
+  id: string
+}
 
 const isOperationActive = ref(false)
 

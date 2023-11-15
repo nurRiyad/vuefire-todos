@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { defineAsyncComponent, ref } from 'vue'
 import { useAutoAnimate } from '@formkit/auto-animate/vue'
-import TaskModal from '@/components/TaskModal.vue'
-import Tasks from '@/components/Tasks.vue'
+
+const Tasks = defineAsyncComponent(() => import('@/components/Tasks.vue'))
+const TaskModal = defineAsyncComponent(() => import('@/components/TaskModal.vue'))
 
 const showTaskType = ref('all')
 const searchText = ref('')

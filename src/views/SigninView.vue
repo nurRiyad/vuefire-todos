@@ -8,9 +8,10 @@ import {
   signInWithPopup,
 } from 'firebase/auth'
 import { useRouter } from 'vue-router'
-import { onMounted, ref, watch } from 'vue'
-import Info from '@/components/svg/Info.vue'
-import Google from '@/components/svg/Google.vue'
+import { defineAsyncComponent, onMounted, ref, watch } from 'vue'
+
+const Google = defineAsyncComponent(() => import('@/components/svg/Google.vue'))
+const Info = defineAsyncComponent(() => import('@/components/svg/Info.vue'))
 
 const provider = new GoogleAuthProvider()
 

@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import Hero from '@/components/Hero.vue'
+import { defineAsyncComponent } from 'vue'
+
+const Hero = defineAsyncComponent(() => import('@/components/Hero.vue'))
 </script>
 
 <template>

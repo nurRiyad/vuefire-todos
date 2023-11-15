@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { useAutoAnimate } from '@formkit/auto-animate/vue'
-import Navbar from './components/Navbar.vue'
-import Footer from './components/Footer.vue'
+import { defineAsyncComponent } from 'vue'
+
+const Footer = defineAsyncComponent(() => import('./components/Footer.vue'))
+const Navbar = defineAsyncComponent(() => import('./components/Navbar.vue'))
 
 const [parent] = useAutoAnimate()
 </script>

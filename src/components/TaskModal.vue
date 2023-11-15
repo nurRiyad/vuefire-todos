@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { defineAsyncComponent, ref } from 'vue'
 import { addDoc, collection } from 'firebase/firestore'
 import { getCurrentUser, useFirestore } from 'vuefire'
-import Close from '@/components/svg/Close.vue'
+
+const Close = defineAsyncComponent(() => import('@/components/svg/Close.vue'))
 
 const title = ref('')
 const des = ref('')

@@ -1,19 +1,20 @@
 <script setup lang="ts">
 import { getCurrentUser, useCollection, useFirestore } from 'vuefire'
 import { collection } from 'firebase/firestore'
-import { computed } from 'vue'
-import TaskCard from '@/components/TaskCard.vue'
-import EmptyCard from '@/components/EmptyCard.vue'
-
-interface Props {
-  showTaskType: string
-  searchText: string
-}
+import { computed, defineAsyncComponent } from 'vue'
 
 const props = withDefaults(defineProps<Props>(), {
   showTaskType: 'inprogress',
   searchText: '',
 })
+
+const EmptyCard = defineAsyncComponent(() => import('@/components/EmptyCard.vue'))
+const TaskCard = defineAsyncComponent(() => import('@/components/TaskCard.vue'))
+
+interface Props {
+  showTaskType: string
+  searchText: string
+}
 
 const db = useFirestore()
 const user = await getCurrentUser()
