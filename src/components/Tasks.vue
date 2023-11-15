@@ -45,7 +45,7 @@ const searchedTodos = computed(() => {
   <div
     v-for="todo in searchedTodos"
     :key="todo.id"
-    class="max-w-2xl mx-auto border p-3 rounded-md shadow-md"
+    class="max-w-2xl mx-auto shadow-md"
   >
     <TaskCard
       :id="todo.id"
@@ -56,7 +56,7 @@ const searchedTodos = computed(() => {
   </div>
   <div
     v-if="searchedTodos.length === 0"
-    class="max-w-2xl mx-auto border p-3 rounded-md shadow-md"
+    class="max-w-2xl mx-auto  shadow-md"
   >
     <EmptyCard />
   </div>

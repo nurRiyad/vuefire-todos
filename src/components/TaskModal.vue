@@ -46,7 +46,7 @@ const createTaks = async () => {
     <!-- The button to open modal -->
     <label
       for="my-modal"
-      class="btn btn-primary md:btn-wide"
+      class="btn btn-primary w-28 "
       @click="showModal = true"
     >
       New Task

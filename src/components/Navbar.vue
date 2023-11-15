@@ -26,7 +26,7 @@ const onLogoutClick = () => {
 </script>
 
 <template>
-  <header class="border-b">
+  <header class="border-b border-base-300">
     <div class="container max-w-7xl mx-auto navbar">
       <div class="navbar-start">
         <RouterLink
@@ -49,23 +49,18 @@ const onLogoutClick = () => {
         <RouterLink v-if="!user && route.fullPath !== '/signin' " to="/signin" class="btn btn-primary">
           SignIn
         </RouterLink>
-        <div v-else-if="user" class="dropdown dropdown-end hover:text-primary">
-          <label tabindex="0" class="btn btn-ghost btn-circle avatar">
-            <div class="w-10 rounded-full ring-2">
-              <img
-                :src="
-                  user?.photoURL
-                    || 'https://www.nurriyad.xyz/_nuxt/profilepic.e7877b41.webp'
-                "
-              >
+        <div v-else-if="user" class="dropdown dropdown-end">
+          <label tabindex="0" class="btn btn-ghost ring-2  btn-circle avatar">
+            <div class="w-10 rounded-full">
+              <img alt="Profile Image" :src="user?.photoURL || '/default-man.jpg'">
             </div>
           </label>
-          <ul
-            tabindex="0"
-            class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
-          >
+          <ul tabindex="0" class="menu menu-sm bg-base-300 dropdown-content mt-3 z-[1] p-2 shadow  rounded-box w-52">
             <li @click="onLogoutClick">
-              <a>Logout</a>
+              <a class="justify-between">
+                Log Out
+
+              </a>
             </li>
           </ul>
         </div>

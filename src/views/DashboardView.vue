@@ -4,7 +4,7 @@ import { useAutoAnimate } from '@formkit/auto-animate/vue'
 import TaskModal from '@/components/TaskModal.vue'
 import Tasks from '@/components/Tasks.vue'
 
-const showTaskType = ref('inprogress')
+const showTaskType = ref('all')
 const searchText = ref('')
 
 const [parent] = useAutoAnimate()
@@ -12,21 +12,24 @@ const [parent] = useAutoAnimate()
 
 <template>
   <div class="container mx-auto max-w-7xl">
-    <div class="p-5 space-y-5">
+    <div class="py-5 space-y-5">
       <div class="flex justify-center align-baseline space-x-5">
-        <TaskModal />
         <input
           v-model="searchText"
           type="text"
           placeholder="Type here to Search"
-          class="input input-bordered input-primary w-full max-w-xs"
+          class="input input-bordered input-primary w-full max-w-sm"
         >
+        <TaskModal />
       </div>
 
       <div ref="parent" class="space-y-3">
         <Suspense>
           <!-- component with nested async dependencies -->
-          <Tasks :show-task-type="showTaskType" :search-text="searchText" />
+          <Tasks
+            :show-task-type="showTaskType"
+            :search-text="searchText"
+          />
 
           <!-- loading state via #fallback slot -->
           <template #fallback>
@@ -38,10 +41,10 @@ const [parent] = useAutoAnimate()
         <div class="btn-group">
           <button
             class="btn"
-            :class="{ 'btn-active': showTaskType === 'inprogress' }"
-            @click="showTaskType = 'inprogress'"
+            :class="{ 'btn-active': showTaskType === 'all' }"
+            @click="showTaskType = 'all'"
           >
-            Todos
+            All
           </button>
           <button
             class="btn"
@@ -52,10 +55,10 @@ const [parent] = useAutoAnimate()
           </button>
           <button
             class="btn"
-            :class="{ 'btn-active': showTaskType === 'all' }"
-            @click="showTaskType = 'all'"
+            :class="{ 'btn-active': showTaskType === 'inprogress' }"
+            @click="showTaskType = 'inprogress'"
           >
-            All
+            Todos
           </button>
         </div>
       </div>

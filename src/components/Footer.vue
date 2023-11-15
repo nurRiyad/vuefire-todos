@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer footer-center p-10 border-t">
+  <footer class="footer footer-center p-10 border-t border-base-300">
     <div>
       <img class="w-12 rounded-full" src="/riyad.jpg" alt="riyad profile img">
       <p class="font-bold">

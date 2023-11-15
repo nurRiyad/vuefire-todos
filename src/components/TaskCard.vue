@@ -64,19 +64,19 @@ const onDeleteClick = async () => {
 
 <template>
   <div
-    class="flex justify-between items-center cursor-pointer px-5 py-2 space-x-3"
+    class="flex bg-base-300 justify-between items-center cursor-pointer px-5 py-5 rounded-md space-x-3"
     @click="onClicked"
   >
     <div>
       <h1
         class="text-base md:text-2xl font-semibold"
-        :class="{ 'text-gray-400': isChecked }"
+        :class="{ 'line-through': isChecked }"
       >
         {{ title }}
       </h1>
       <p
         class="mt-2 text-xs md:text-base"
-        :class="{ 'text-gray-400': isChecked }"
+        :class="{ 'line-through': isChecked }"
       >
         {{ description }}
       </p>

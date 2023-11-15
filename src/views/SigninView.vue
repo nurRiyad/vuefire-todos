@@ -95,12 +95,12 @@ onMounted(() => {
 <template>
   <div class="container max-w-7xl h-full mx-auto">
     <div class="flex justify-center h-full items-center">
-      <div class="flex flex-col space-y-4 p-10 m-5 rounded-lg shadow-md bg-base-100">
+      <div class="space-y-4 p-10 m-5 rounded-lg shadow-md bg-neutral text-neutral-content">
         <div>
-          <h1 class="text-4xl text-center font-bold text-primary">
+          <h1 class="text-4xl text-center font-bold">
             Welcome !
           </h1>
-          <p class="text-zinc-500 text-sm text-center pb-5 pt-2">
+          <p class="text-sm text-center pb-5 pt-2">
             Start Your Journey With Vuefire Todo
           </p>
         </div>
@@ -110,29 +110,30 @@ onMounted(() => {
           placeholder="Enter Your Email"
           class="input input-bordered input-primary w-full max-w-xs"
         >
+        <br>
         <button
-          class="btn btn-primary"
+          class="btn btn-primary w-full"
           :class="{ loading: showProcessing === true }"
           @click="sentEmailForVerify"
         >
           Sign In
         </button>
-
+        <br>
         <button
-          class="btn btn-primary  gap-1"
+          class="btn btn-primary w-full  gap-1"
           @click="googleSignIn"
         >
           <span class="pr-2">Sign In With</span>
-          <Google class="w-4" />
+          <Google class="w-3" />
         </button>
         <div v-if="sentMail" class="alert alert-info shadow-lg">
-          <div>
+          <div class="flex space-x-1 justify-center items-center">
             <Info />
             <span>Check mailbox for login link</span>
           </div>
         </div>
         <div v-if="errorMsg.length > 1" class="alert alert-error shadow-lg">
-          <div>
+          <div class="flex space-x-1 justify-center items-center">
             <Info />
             <span>{{ errorMsg }}</span>
           </div>
