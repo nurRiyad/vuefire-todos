@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useCurrentUser } from 'vuefire'
 import { getAuth, signOut } from 'firebase/auth'
-import { useRoute, useRouter } from 'vue-router'
 import { computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { useCurrentUser } from 'vuefire'
 
 const user = useCurrentUser()
 const router = useRouter()
@@ -46,15 +46,15 @@ const onLogoutClick = () => {
         </RouterLink>
       </div>
       <div class="navbar-end">
-        <RouterLink v-if="!user" to="/signin" class="btn btn-primary">
+        <RouterLink v-if="!user && route.fullPath !== '/signin' " to="/signin" class="btn btn-primary">
           SignIn
         </RouterLink>
-        <div v-else class="dropdown dropdown-end hover:text-primary">
+        <div v-else-if="user" class="dropdown dropdown-end hover:text-primary">
           <label tabindex="0" class="btn btn-ghost btn-circle avatar">
             <div class="w-10 rounded-full ring-2">
               <img
                 :src="
-                  user.photoURL
+                  user?.photoURL
                     || 'https://www.nurriyad.xyz/_nuxt/profilepic.e7877b41.webp'
                 "
               >

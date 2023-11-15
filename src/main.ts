@@ -1,8 +1,8 @@
-import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import { createApp } from 'vue'
 
-import { VueFire, VueFireAuth } from 'vuefire'
 import { autoAnimatePlugin } from '@formkit/auto-animate/vue'
+import { VueFire, VueFireAuth } from 'vuefire'
 import App from './App.vue'
 import router from './router'
 
