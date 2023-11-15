@@ -38,30 +38,28 @@ const [parent] = useAutoAnimate()
           </template>
         </Suspense>
       </div>
-      <div class="flex justify-center">
-        <div class="btn-group">
-          <button
-            class="btn"
-            :class="{ 'btn-active': showTaskType === 'all' }"
-            @click="showTaskType = 'all'"
-          >
-            All
-          </button>
-          <button
-            class="btn"
-            :class="{ 'btn-active': showTaskType === 'completed' }"
-            @click="showTaskType = 'completed'"
-          >
-            Completed
-          </button>
-          <button
-            class="btn"
-            :class="{ 'btn-active': showTaskType === 'inprogress' }"
-            @click="showTaskType = 'inprogress'"
-          >
-            Todos
-          </button>
-        </div>
+      <div class="flex justify-center space-x-2">
+        <button
+          class="btn"
+          :class="{ 'btn-primary': showTaskType === 'all' }"
+          @click="showTaskType = 'all'"
+        >
+          All
+        </button>
+        <button
+          class="btn"
+          :class="{ 'btn-primary': showTaskType === 'completed' }"
+          @click="showTaskType = 'completed'"
+        >
+          Completed
+        </button>
+        <button
+          class="btn"
+          :class="{ 'btn-primary': showTaskType === 'inprogress' }"
+          @click="showTaskType = 'inprogress'"
+        >
+          Todos
+        </button>
       </div>
     </div>
   </div>
