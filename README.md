@@ -24,9 +24,9 @@ Vuefire Todos built with [Vue3](https://vuejs.org), [Vuefire](https://vuefire.vu
 
 <p align="center">
   <a href="https://vuefire-todos.netlify.app/" target="_blank">
+    <img width="1090" src="./src/assets/previews/dashboard.png">
     <img width="1090" src="./src/assets/previews/home.png">
     <img width="1090" src="./src/assets/previews/login.png">
-    <img width="1090" src="./src/assets/previews/dashboard.png">
     <br>
     Live Demo
   </a>
