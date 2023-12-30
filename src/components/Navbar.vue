@@ -8,6 +8,8 @@ const user = useCurrentUser()
 const router = useRouter()
 const route = useRoute()
 
+const isLoading = computed(() => user.value === undefined)
+
 const isRoot = computed(() => (route.fullPath === '/'))
 
 const onLogoutClick = () => {
@@ -27,7 +29,7 @@ const onLogoutClick = () => {
 
 <template>
   <header class="border-b border-base-300">
-    <div class="container max-w-7xl mx-auto navbar">
+    <div class="container max-w-4xl mx-auto navbar">
       <div class="navbar-start">
         <RouterLink
           to="/"
@@ -46,9 +48,9 @@ const onLogoutClick = () => {
         </RouterLink>
       </div>
       <div class="navbar-end">
-        <RouterLink v-if="!user && route.fullPath !== '/signin' " to="/signin" class="btn btn-primary">
-          SignIn
-        </RouterLink>
+        <button v-if="isLoading" class="btn btn-circle btn-primary btn-disabled">
+          <span class="loading loading-spinner" />
+        </button>
         <div v-else-if="user" class="dropdown dropdown-end">
           <label tabindex="0" class="btn btn-ghost ring-2  btn-circle avatar">
             <div class="w-10 rounded-full">
@@ -59,11 +61,13 @@ const onLogoutClick = () => {
             <li @click="onLogoutClick">
               <a class="justify-between">
                 Log Out
-
               </a>
             </li>
           </ul>
         </div>
+        <RouterLink v-else-if="!user && route.fullPath !== '/signin' " to="/signin" class="btn btn-primary">
+          SignIn
+        </RouterLink>
       </div>
     </div>
   </header>

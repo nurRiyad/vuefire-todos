@@ -19,7 +19,7 @@ interface Props {
 const db = useFirestore()
 const user = await getCurrentUser()
 
-const todos = useCollection(collection(db, `/users/${user?.uid}/todos`))
+const todos = await useCollection(collection(db, `/users/${user?.uid}/todos`))
 
 const filteredTodos = computed(() => {
   return todos.value.filter((todo) => {
@@ -31,7 +31,7 @@ const filteredTodos = computed(() => {
 
 const searchedTodos = computed(() => {
   return filteredTodos.value.filter((todo) => {
-    if (props.searchText.length <= 2) {
+    if (props.searchText.length <= 1) {
       return true
     }
     else {
@@ -46,7 +46,7 @@ const searchedTodos = computed(() => {
   <div
     v-for="todo in searchedTodos"
     :key="todo.id"
-    class="max-w-2xl mx-auto shadow-md"
+    class="max-w-3xl mx-auto shadow-md"
   >
     <TaskCard
       :id="todo.id"
