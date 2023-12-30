@@ -1,7 +1,12 @@
 <script setup lang="ts">
+import { computed, defineAsyncComponent, ref, watch } from 'vue'
 import { getCurrentUser, useCollection, useFirestore } from 'vuefire'
 import { collection } from 'firebase/firestore'
-import { computed, defineAsyncComponent } from 'vue'
+
+interface Props {
+  showTaskType: string
+  searchText: string
+}
 
 const props = withDefaults(defineProps<Props>(), {
   showTaskType: 'inprogress',
@@ -11,14 +16,10 @@ const props = withDefaults(defineProps<Props>(), {
 const EmptyCard = defineAsyncComponent(() => import('@/components/EmptyCard.vue'))
 const TaskCard = defineAsyncComponent(() => import('@/components/TaskCard.vue'))
 
-interface Props {
-  showTaskType: string
-  searchText: string
-}
+const isDataFetched = ref(true)
 
-const db = useFirestore()
+const db = await useFirestore()
 const user = await getCurrentUser()
-
 const todos = await useCollection(collection(db, `/users/${user?.uid}/todos`))
 
 const filteredTodos = computed(() => {
@@ -27,6 +28,10 @@ const filteredTodos = computed(() => {
       return true
     else return todo.type === props.showTaskType
   })
+})
+
+watch(todos, () => {
+  isDataFetched.value = false
 })
 
 const searchedTodos = computed(() => {
@@ -55,9 +60,15 @@ const searchedTodos = computed(() => {
       :type="todo.type"
     />
   </div>
+  <div v-if="isDataFetched" class="space-y-5 mt-10 flex flex-col items-center">
+    <div class="skeleton w-[48rem] h-8" />
+    <div class="skeleton w-[48rem] h-8" />
+    <div class="skeleton w-[48rem] h-8" />
+    <div class="skeleton w-[48rem] h-8" />
+  </div>
   <div
-    v-if="searchedTodos.length === 0"
-    class="max-w-2xl mx-auto  shadow-md"
+    v-else-if="searchedTodos.length === 0"
+    class="max-w-2xl mx-auto shadow-md"
   >
     <EmptyCard />
   </div>

@@ -58,7 +58,9 @@ const [parent] = useAutoAnimate()
 
           <!-- loading state via #fallback slot -->
           <template #fallback>
-            Loading...
+            <p class="text-xl sm:text-3xl text-center mt-20">
+              Loading...
+            </p>
           </template>
         </Suspense>
       </div>
